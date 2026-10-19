@@ -1,0 +1,26 @@
+{
+    "with_options": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "remoteUser": "vscode",
+        "features": {
+            "gh-release-tool": {
+                "repo": "mikefarah/yq",
+                "command": "yq",
+                "asset": "yq_linux_{arch}",
+                "persistDirs": ".cache/example-tool, .config/example-tool",
+                "stableMachineId": true
+            }
+        }
+    },
+    "invalid_options": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "remoteUser": "vscode",
+        "features": {
+            "gh-release-tool": {
+                "repo": "not a repo",
+                "command": "yq",
+                "asset": "yq_linux_{arch}"
+            }
+        }
+    }
+}

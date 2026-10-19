@@ -12,7 +12,7 @@ home="${1:?ダミーのホームのディレクトリを渡してください}"
 LEAK="DO-NOT-""LEAK"
 
 mkdir -p "$home/.claude/hooks" "$home/.claude/commands" "$home/.claude/skills" "$home/.claude/projects/host" \
-  "$home/.agents/skills/demo" "$home/.codex" "$home/dummy-claude"
+  "$home/.agents/skills/demo" "$home/.codex" "$home/dummy-claude" "$home/.config/gh-release-tool"
 
 # コンテナに見せるもの
 echo "host CLAUDE.md" >"$home/.claude/CLAUDE.md"

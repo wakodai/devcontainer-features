@@ -1,0 +1,51 @@
+{
+    "id": "gh-release-tool",
+    "version": "0.1.0",
+    "name": "Tool from GitHub Releases (via gh)",
+    "description": "GitHub のリリースにあるコマンドを、コンテナの gh のログインで取ってきて入れます。private リポジトリにも使えます。本体と、指定した保存先はホストの ~/.config/gh-release-tool に置き、全部の devcontainer で共有します。",
+    "documentationURL": "https://github.com/wakodai/devcontainer-features/tree/main/src/gh-release-tool",
+    "licenseURL": "https://github.com/wakodai/devcontainer-features/blob/main/LICENSE",
+    "options": {
+        "repo": {
+            "type": "string",
+            "default": "",
+            "description": "リリースを取るリポジトリ（owner/name）"
+        },
+        "command": {
+            "type": "string",
+            "default": "",
+            "description": "コマンド名。/usr/local/bin にこの名前で置き、アーカイブの中からもこの名前のファイルを探す"
+        },
+        "asset": {
+            "type": "string",
+            "default": "",
+            "description": "リリースのファイル名。{arch} は amd64 / arm64 に置き換える（例: mytool_linux_{arch}.tar.gz）"
+        },
+        "version": {
+            "type": "string",
+            "default": "latest",
+            "description": "入れるバージョンのタグ（例: v1.2.3）。latest のときは、まだ入っていなければ最新版を入れる"
+        },
+        "persistDirs": {
+            "type": "string",
+            "default": "",
+            "description": "ホストに置いて共有する、ホームからの相対パス（カンマ区切り。例: .cache/mytool）。ログイン情報の保存先などを指定する"
+        },
+        "stableMachineId": {
+            "type": "boolean",
+            "default": false,
+            "description": "コンテナのマシン ID（/var/lib/dbus/machine-id）を、ホストごとに固定の値にする。マシン ID でログイン情報を暗号化するコマンド向け"
+        }
+    },
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "mounts": [
+        {
+            "source": "${localEnv:HOME}/.config/gh-release-tool",
+            "target": "/var/gh-release-tool",
+            "type": "bind"
+        }
+    ],
+    "postStartCommand": "/usr/local/share/gh-release-tool/start.sh"
+}

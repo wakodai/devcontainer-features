@@ -5,6 +5,7 @@
 | Feature | 説明 |
 |---|---|
 | [agent-home](src/agent-home) | devcontainer の中の Claude Code と Codex に、ホストの設定を読み取り専用で見せ、ログイン・プラグイン・会話ログをプロジェクトごとにワークスペースの中へ保存する |
+| [gh-release-tool](src/gh-release-tool) | GitHub のリリースにあるコマンドを、コンテナの gh のログインで取ってきて入れる（private リポジトリにも使える）。本体とログイン情報はホストに置き、全部の devcontainer で共有する |
 
 ## テスト
 
