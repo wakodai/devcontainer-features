@@ -70,6 +70,7 @@ Claude Code の CLI（`ghcr.io/anthropics/devcontainer-features/claude-code`）�
 
 ## 注意
 
+- **mounts は仕様から外れた書き方をしている。** 読み取り専用にするため、`devcontainer-feature.json` の `mounts` を `readonly` 付きの文字列で書いています。仕様のスキーマは `mounts` をオブジェクト（`readonly` の欄なし）に限っているので、公開時のスキーマ検査を外しています。VS Code の Dev Containers 拡張と devcontainer CLI では動作を確認していますが、ほかのツールでは動かない可能性があります。
 - **ストアはワークスペースの中にある。** Dockerfile に `COPY . .` があり、ビルドの対象がリポジトリ全体のプロジェクトでは、ログイン情報がイメージに入ることがあります。
 - **ホストの `~/.claude.json` と `~/.codex/config.toml` はコンテナから読める。** MCP サーバーの定義にトークンを直書きしないでください（環境変数で渡してください）。
 - **Docker が作る空のファイルがホストに残る。** マウント先として、空のファイルやディレクトリがホスト側の `agent-home/` に作られます。Linux のホストでは root の所有になるので、ディレクトリだけは初回に `sudo` でコンテナのユーザーに直します。

@@ -12,12 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ghcr.io/wakodai/devcontainer-features/<id> に公開する。README は手で書いているので生成しない
+      # ghcr.io/wakodai/devcontainer-features/<id> に公開する。README は手で書いているので生成しない。
+      # agent-home の mounts は readonly を付けるために文字列で書いている。仕様のスキーマは mounts を
+      # オブジェクト（readonly の欄なし）に限っているので、スキーマ検査は外す（devcontainer CLI は文字列も受け付ける）
       - name: "Publish Features"
         uses: devcontainers/action@v1
         with:
           publish-features: "true"
           base-path-to-features: "./src"
           generate-docs: "false"
+          disable-schema-validation: "true"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
