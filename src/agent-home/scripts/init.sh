@@ -92,6 +92,13 @@ for d in "$ws/.devcontainer" "$ah" "$ah/.claude" "$ah/.codex" "$ah/.host"; do
   fix_owner "$d"
 done
 
+# Linux のホストでは、devcontainer がコンテナのユーザーの UID をホストのユーザーに合わせて変える。
+# するとビルド時にそのユーザーの所有にした /etc/codex/config.toml に書き込めなくなるので、ここで直す
+if [ -e /etc/codex/config.toml ] && [ ! -w /etc/codex/config.toml ]; then
+  sudo -n chown "$(id -u):$(id -g)" /etc/codex/config.toml 2>/dev/null \
+    || warn "/etc/codex/config.toml に書き込めません（sudo がパスワードなしで使えません）。Codex に MCP サーバーを渡せません"
+fi
+
 wire_claude
 wire_codex
 wire_agents
