@@ -1,0 +1,27 @@
+{
+    "id": "agent-home",
+    "version": "0.1.0",
+    "name": "Agent Home (Claude Code / Codex)",
+    "description": "ホストの Claude Code / Codex の設定を読み取り専用で見せ、ログイン・プラグイン・会話ログをプロジェクトごとにワークスペースの中へ保存します。",
+    "documentationURL": "https://github.com/wakodai/devcontainer-features/tree/main/src/agent-home",
+    "licenseURL": "https://github.com/wakodai/devcontainer-features/blob/main/LICENSE",
+    "dependsOn": {
+        "ghcr.io/devcontainers/features/node:1": {},
+        "ghcr.io/anthropics/devcontainer-features/claude-code:1": {},
+        "ghcr.io/thamaji/devcontainer-features/codex-cli:1": {}
+    },
+    "mounts": [
+        "source=${localEnv:HOME}/.claude/CLAUDE.md,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.claude/CLAUDE.md,type=bind,readonly",
+        "source=${localEnv:HOME}/.claude/statusline-command.sh,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.claude/statusline-command.sh,type=bind,readonly",
+        "source=${localEnv:HOME}/.claude/hooks,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.claude/hooks,type=bind,readonly",
+        "source=${localEnv:HOME}/.claude/commands,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.claude/commands,type=bind,readonly",
+        "source=${localEnv:HOME}/.claude/skills,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.claude/skills,type=bind,readonly",
+        "source=${localEnv:HOME}/.agents,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.agents,type=bind,readonly",
+        "source=${localEnv:HOME}/.codex/AGENTS.md,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.codex/AGENTS.md,type=bind,readonly",
+        "source=${localEnv:HOME}/.claude/settings.json,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.host/claude-settings.json,type=bind,readonly",
+        "source=${localEnv:HOME}/.claude.json,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.host/claude.json,type=bind,readonly",
+        "source=${localEnv:HOME}/.codex/config.toml,target=${containerWorkspaceFolder}/.devcontainer/agent-home/.host/codex-config.toml,type=bind,readonly"
+    ],
+    "postCreateCommand": "/usr/local/share/agent-home/init.sh '${containerWorkspaceFolder}'",
+    "postStartCommand": "/usr/local/share/agent-home/start.sh '${containerWorkspaceFolder}'"
+}
